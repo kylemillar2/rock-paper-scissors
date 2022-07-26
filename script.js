@@ -1,3 +1,7 @@
+let playerScore = 0;
+let computerScore = 0;
+const buttons = document.querySelectorAll("button");
+
 function getComputerChoice() {
     const choices = ["rock", "paper", "scissors"]
     const random = Math.floor(Math.random() * choices.length);
@@ -8,36 +12,36 @@ function playRound(playerSelection, computerSelection) {
     const choices = ["rock", "paper", "scissors"]
     const p = choices.indexOf(playerSelection.toLowerCase());
     const c = choices.indexOf(computerSelection.toLowerCase());
-"djhd".tol
-    if (p === c) return `It's a draw! You both chose ${playerSelection}`;
+    if (p === c) {
+        console.log(`It's a draw! You both chose ${playerSelection}`)
+    } else if ((p + 1) % 3 === c) {
+        console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
+        computerScore++;
+    } else {
+        console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+        playerScore++;
+    }
 
-    if ((p + 1) % 3 === computerSelection) return `You lose! ${computerSelection} beats ${playerSelection}`
-        else return `You win! ${playerSelection} beats ${computerSelection}`;
+    if (playerScore == 5) {
+        console.log(`You win! Final score is ${playerScore}-${computerScore}`);
+        disableButtons();
+    } else if (computerScore == 5) {
+        console.log(`You lose! Final score is ${playerScore}-${computerScore}`);
+        disableButtons();
+    }
 }
 
 function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    let result;
-    for (let i = 0; i < 5; i++) {
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            let computerSelection = getComputerChoice();
+            playRound(button.value, computerSelection);
+        });
+    });   
+}
 
-        let playerSelection = prompt(`Round ${i+1}. Choose rock, paper or scissors.`);
-        let computerSelection = getComputerChoice();
-        result = playRound(playerSelection, computerSelection);
-        console.log(result);
-        if (result.includes("win")) {
-            playerScore++;
-        } else if (result.includes("lose")) {
-            computerScore++;
-        }
-    }
-    if (playerScore > computerScore) {
-        console.log(`You win! Final score was ${playerScore}-${computerScore}`);
-    } else if (computerScore > playerScore) {
-        console.log(`You lose! Final score was ${playerScore}-${computerScore}`);
-    } else {
-        console.log(`It's a draw! Final score was ${playerScore}-${computerScore}`);
-    }
+function disableButtons() {
+    buttons.forEach(button => button.disabled = true);
 }
 
 game();
