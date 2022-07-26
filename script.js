@@ -1,6 +1,7 @@
 let playerScore = 0;
 let computerScore = 0;
 const buttons = document.querySelectorAll("button");
+const div = document.querySelector("div");
 
 function getComputerChoice() {
     const choices = ["rock", "paper", "scissors"]
@@ -13,20 +14,20 @@ function playRound(playerSelection, computerSelection) {
     const p = choices.indexOf(playerSelection.toLowerCase());
     const c = choices.indexOf(computerSelection.toLowerCase());
     if (p === c) {
-        console.log(`It's a draw! You both chose ${playerSelection}`)
+        div.textContent = `It's a draw! You both chose ${playerSelection}`;
     } else if ((p + 1) % 3 === c) {
-        console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
+        div.textContent = `You lose! ${computerSelection} beats ${playerSelection}`;
         computerScore++;
     } else {
-        console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+        div.textContent = `You win! ${playerSelection} beats ${computerSelection}`;
         playerScore++;
     }
 
     if (playerScore == 5) {
-        console.log(`You win! Final score is ${playerScore}-${computerScore}`);
+        div.textContent = `You win! Final score is ${playerScore}-${computerScore}`;
         disableButtons();
     } else if (computerScore == 5) {
-        console.log(`You lose! Final score is ${playerScore}-${computerScore}`);
+        div.textContent = `You lose! Final score is ${playerScore}-${computerScore}`;
         disableButtons();
     }
 }
